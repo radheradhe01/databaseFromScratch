@@ -12,8 +12,6 @@ import (
 	"sync"
 )
 
-// TableCatalog now supports multiple tables and index creation
-
 type TableCatalog struct {
 	Tables   map[string]*Table
 	WAL      *WAL
@@ -22,7 +20,6 @@ type TableCatalog struct {
 	mu       sync.Mutex
 }
 
-// NewTableCatalog creates a new table catalog.
 func NewTableCatalog() *TableCatalog {
 	wal, err := NewWAL("wal.log")
 	if err != nil {
@@ -45,8 +42,6 @@ func NewTableCatalog() *TableCatalog {
 	return catalog
 }
 
-// CreateTable adds a new table to the catalog.
-// It now also takes the BTree instance directly.
 func (tc *TableCatalog) CreateTable(name string, schema []string) {
 	tc.Tables[name] = &Table{
 		Name:    name,
@@ -64,14 +59,11 @@ func (tc *TableCatalog) CreateIndex(tableName, indexName string, columns []strin
 	return tbl.AddIndex(indexName, columns)
 }
 
-// GetTable retrieves a table from the catalog.
 func (tc *TableCatalog) GetTable(name string) (*Table, bool) {
 	tbl, ok := tc.Tables[name]
 	return tbl, ok
 }
 
-// ExecuteSQL processes an SQL string against the tables in the catalog.
-// This is now a standalone function that takes the catalog.
 func ExecuteSQL(catalog *TableCatalog, sql string) error {
 	stmt, err := ParseSQL(sql)
 	if err != nil {
@@ -159,7 +151,6 @@ func ExecuteSQL(catalog *TableCatalog, sql string) error {
 	}
 }
 
-// executeWriteSQL parses and executes a single write or read SQL statement (no transaction logic)
 func executeWriteSQL(catalog *TableCatalog, sql string) error {
 	stmt, err := ParseSQL(sql)
 	if err != nil {
@@ -918,8 +909,6 @@ func nodeTypeStr(btype uint16) string {
 	return "INTERNAL"
 }
 
-// Table structure
-
 type Table struct {
 	Name    string
 	Schema  []string
@@ -941,8 +930,6 @@ func NewTable(name string, schema []string) *Table {
 	}
 }
 
-// Index structure for secondary indexes
-
 type Index struct {
 	Name    string
 	Columns []string
@@ -950,7 +937,7 @@ type Index struct {
 }
 
 type IndexCatalog struct {
-	Indexes map[string]*Index // index name -> Index
+	Indexes map[string]*Index
 }
 
 func NewIndexCatalog() *IndexCatalog {
@@ -1085,9 +1072,6 @@ func prettyPrintTable(header []string, rows [][]string) {
 	}
 }
 
-// Database structure (Old, to be removed or refactored if still needed for other purposes)
-// For now, we are using TableCatalog and standalone ExecuteSQL
-
 type Database struct {
 	Tables map[string]*Table
 }
@@ -1118,10 +1102,8 @@ func (db *Database) ExecuteSQL(sql string) error {
 	return fmt.Errorf("old Database.ExecuteSQL is deprecated; use standalone ExecuteSQL function with TableCatalog")
 }
 
-// MetaPage stores table root pointers and metadata
-// For simplicity, we use a fixed-size meta page (page 0)
 type MetaPage struct {
-	TableRoots map[string]uint64 // table name -> root page number
+	TableRoots map[string]uint64
 }
 
 func LoadMetaPage(pager *Pager) (*MetaPage, error) {
@@ -1239,28 +1221,6 @@ func main() {
 	}
 }
 
-// Uncomment and use this for file-backed BTree
-// func main() {
-// 	pager, err := OpenPager("btree.db")
-// 	if err != nil {
-// 		panic(err)
-// 	}
-// 	defer pager.Close()
-// 	btree := BTree{
-// 		get: func(uint64) []byte {
-// 			buf, _ := pager.Get(ptr)
-// 			return buf
-// 		},
-// 		new: func(_ []byte) uint64 {
-// 			pageNum, buf, _ := pager.New()
-// 			return pageNum
-// 		},
-// 		del: func(ptr uint64) { pager.Del(ptr) },
-// 	}
-// 	// ... use btree as before ...
-// }
-
-// Disk-backed BTree using Pager
 func NewDiskBTree(pager *Pager, root uint64) *BTree {
 	return &BTree{
 		root: root,
@@ -1278,8 +1238,6 @@ func NewDiskBTree(pager *Pager, root uint64) *BTree {
 		},
 	}
 }
-
-// BTree Iterator for range queries
 
 type BTreeIterator struct {
 	tree   *BTree
