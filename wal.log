@@ -1,0 +1,39 @@
+INSERT INTO users (id, name, age) VALUES (1, 'Alice', 30)
+INSERT INTO users (id, name, age) VALUES (2, 'Bob', 25)
+INSERT INTO users (id, name, age) VALUES (3, 'Carol', 40)
+INSERT INTO users (id, name, age) VALUES (5, 'Eve', 28)
+INSERT INTO users (id, name, age) VALUES (1, 'Alice', 30)
+INSERT INTO users (id, name, age) VALUES (2, 'Bob', 25)
+INSERT INTO users (id, name, age) VALUES (3, 'Carol', 40)
+INSERT INTO users (id, name, age) VALUES (5, 'Eve', 28)
+INSERT INTO users (id, name, age) VALUES (1, 'Alice', 30)
+INSERT INTO users (id, name, age) VALUES (1, 'Alice', 30)
+DELETE FROM users WHERE id=2
+INSERT INTO users (id, name, age) VALUES (1, 'Alice', 30)
+INSERT INTO users (id, name, age) VALUES (2, 'Bob', 25)
+INSERT INTO users (id, name, age) VALUES (3, 'Carol', 40)
+INSERT INTO products (id, name, price) VALUES (1, 'Laptop', 1200)
+INSERT INTO products (id, name, price) VALUES (2, 'Phone', 800)
+INSERT INTO users (id, name, age) VALUES (1, 'Alice', 30)
+INSERT INTO users (id, name, age) VALUES (1, 'Alice', 30)
+INSERT INTO users (id, name, age) VALUES (1, 'Alice', 30)
+INSERT INTO users (id, name, age) VALUES (1, 'Alice', 30)
+INSERT INTO products (id, name, price) VALUES (2, 'Phone', 800)
+INSERT INTO products (id, name, price) VALUES (1, 'Laptop', 1200)
+INSERT INTO users (id, name, age) VALUES (1, 'Alice', 30)
+INSERT INTO products (id, name, price) VALUES (2, 'Phone', 800)
+INSERT INTO users (id, name, age) VALUES (3, 'Carol', 40)
+UPDATE users SET age=31 WHERE name='Alice'
+DELETE FROM users WHERE id=2
+UPDATE users SET age=31 WHERE name='Alice'
+DELETE FROM users WHERE id=2
+INSERT INTO users (id, name, age) VALUES (5, 'Eve', 28)
+UPDATE users SET age=32 WHERE name='Alice'
+INSERT INTO users (id, name, age) VALUES (1, 'Alice', 30)
+INSERT INTO products (id, name, price) VALUES (2, 'Phone', 800)
+UPDATE users SET age=31 WHERE name='Alice'
+INSERT INTO users (id, name, age) VALUES (4, 'Dave', 22)
+INSERT INTO name (id, name, dob) VALUES (1, bhavesh, 311205)
+INSERT INTO users (id, name, age) VALUES (1, 'Alice', 30)
+INSERT INTO users (id, name, age) VALUES (2, 'Alice3232', 20)
+
