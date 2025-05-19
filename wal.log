@@ -37,3 +37,5 @@ INSERT INTO name (id, name, dob) VALUES (1, bhavesh, 311205)
 INSERT INTO users (id, name, age) VALUES (1, 'Alice', 30)
 INSERT INTO users (id, name, age) VALUES (2, 'Alice3232', 20)
 
+INSERT INTO products (name, price , expiry) VALUES (shampoo, 200, 30/12)
+INSERT INTO product (name, price , expiry) VALUES (shampoo, 200, 30/12)
